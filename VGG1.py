@@ -11,11 +11,10 @@ class VGG1(nn.Module):
 			nn.ReLU(inplace=True),
 			nn.MaxPool2d(kernel_size=(2, 2)),
 		)
-		self.classifier = nn.Sequential(  # add HE initialization
+		self.classifier = nn.Sequential(
 			nn.Linear(32 * 16 * 16, 128),
 			nn.ReLU(inplace=True),
 			nn.Linear(128, 10),
-			nn.Softmax(),
 		)
 
 	def forward(self, x):
