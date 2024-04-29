@@ -1,6 +1,8 @@
 from VGG1 import VGG1
 from VGG2 import VGG2
 from VGG3 import VGG3
+from VGG3_dropout_BN import VGG3_dropout_BN
+
 import torch
 from torch import nn
 from torchvision import datasets
@@ -201,8 +203,8 @@ if __name__ == "__main__":
 	# 	print(f"Shape of y: {y.shape} {y.dtype}")
 	# 	break
 
-	VGG1 = VGG1().to(device)
-	VGG1.apply(he_initalization)
+	# VGG1 = VGG1().to(device)
+	# VGG1.apply(he_initalization)
 
 	# VGG2 = VGG2().to(device)
 	# VGG2.apply(he_initalization)
@@ -210,18 +212,21 @@ if __name__ == "__main__":
 	# VGG3 = VGG3().to(device)
 	# VGG3.apply(he_initalization)
 
+	VGG3_dropout_BN = VGG3_dropout_BN().to(device)
+	VGG3_dropout_BN.apply(he_initalization)
+
 	# for name, param in model.named_parameters():
 	#     if param.requires_grad:
 	#         print(name, param.data)
 
 	# defining loss function and optimizer
 	loss_fn = nn.CrossEntropyLoss()
-	optimize = torch.optim.SGD(VGG1.parameters(), lr=0.001, momentum=0.9)
+	optimize = torch.optim.SGD(VGG3_dropout_BN.parameters(), lr=0.001, momentum=0.9)
 
-	train(100, train_dataloader, test_dataloader, VGG1, loss_fn, optimize)
-	evaluate(VGG1, test_dataloader, loss_fn)
+	train(5, train_dataloader, test_dataloader, VGG3_dropout_BN, loss_fn, optimize)
+	evaluate(VGG3_dropout_BN, test_dataloader, loss_fn)
 
 	# print(f"training lost list: {train_model_training_loss_ls}")
 	# print(f"validation lost list: {validation_model_training_loss_ls}")
-	
+
 	plot_training_validation_loss_and_accuracy()
