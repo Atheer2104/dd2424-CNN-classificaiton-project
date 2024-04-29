@@ -6,7 +6,9 @@ from torch import nn
 from torchvision import datasets
 from torchvision.transforms import v2
 from torch.utils.data import DataLoader
+
 import matplotlib.pyplot as plt
+import time
 
 train_model_training_loss_ls = []
 train_model_training_accuracy_ls = []
@@ -34,7 +36,10 @@ def plot_training_validation_loss_and_accuracy():
 	plt.ylabel("Accuracy")
 	plt.legend()
 
-	plt.show()
+	#plt.show()
+	fname = f"figs/{time.strftime("%Y%m%d-%H%M%S")}"
+	plt.savefig(fname)
+	plt.close()
 
 # load train and test dataset
 def load_dataset():
@@ -102,7 +107,7 @@ def compute_loss_on_whole_dataloader(model, dataloader):
 
 	for valX, valy in dataloader:
 		valX, valy = valX.to(device), valy.to(device)
-		
+
 		# make predictions
 		validation_pred = model(valX.to(device))
 		# compute loss
@@ -120,10 +125,10 @@ def compute_accuracy_on_whole_dataloader(model, dataloader):
 	with torch.no_grad():
 		for X, y in dataloader:
 			X, y = X.to(device), y.to(device)
-			
+
    			# making predictions
 			pred = model(X)
-			
+
 			num_correct += (pred.argmax(1) == y).type(torch.float).sum().item()
 
 	return num_correct / dataset_size
@@ -162,13 +167,13 @@ def train(epochs, training_dataloader, validation_dataloader, model, loss_fn, op
 
 		train_model_training_loss_ls.append(training_loss)
 		validation_model_training_loss_ls.append(validation_loss)
-		
+
 		training_acc = compute_accuracy_on_whole_dataloader(model, training_dataloader)
 		validation_acc = compute_accuracy_on_whole_dataloader(model, validation_dataloader)
-  
+
 		train_model_training_accuracy_ls.append(training_acc)
 		validation_model_training_accuracy_ls.append(validation_acc)
-		
+
 
 		# Print information out
 		print(f"Epoch: {current_epoch}, Loss: {training_loss:.4f}")
