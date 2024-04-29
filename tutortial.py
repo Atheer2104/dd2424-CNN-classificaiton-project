@@ -1,6 +1,6 @@
 from VGG1 import VGG1
 from VGG2 import VGG2
-from VGG3 import VGG3
+from VGG3_dropout import VGG3
 import torch
 from torch import nn
 from torchvision import datasets
