@@ -39,25 +39,39 @@ def plot_training_validation_loss_and_accuracy():
 	plt.legend()
 
 	#plt.show()
-	fname = f"figs/{time.strftime("%Y%m%d-%H%M%S")}"
+	fname = f"figs/{time.strftime('%Y%m%d-%H%M%S')}"
 	plt.savefig(fname)
 	plt.close()
 
 # load train and test dataset
 def load_dataset():
 
+	# defining the transfmorations that will be done on the image
+	transforms = v2.Compose([
+		# convert the input from PIL image to Image which is analogy to a torch tensor
+		v2.ToImage(),
+		# performs random horizontal fliping where the default probability for flip is 0.5
+		v2.RandomHorizontalFlip(),
+		# here we are applying the height and width shift, we use the affine function where we can apply multiple
+		# transformations at once, one which you have to apply is degrees which is to rotation the image by in our case
+		# we don't want any transformations
+		v2.RandomAffine(degrees = 0, translate= (0.1, 0.1)),
+		# changes the type of tensor to float32 and performs scaling so the value will be between [0,1] this happens
+		# because the target type is float32
+		v2.ToDtype(torch.float32, scale=True)])
+
 	# load dataset
 	training_data = datasets.CIFAR10(
 		"root",
 		train=True,
 		download=True,
-		transform=v2.Compose([v2.ToImage(), v2.ToDtype(torch.float32, scale=True)]),
+		transform=transforms,
 	)
 	test_data = datasets.CIFAR10(
 		"root",
 		train=False,
 		download=True,
-		transform=v2.Compose([v2.ToImage(), v2.ToDtype(torch.float32, scale=True)]),
+		transform=transforms,
 	)
 
 	return training_data, test_data
@@ -223,7 +237,7 @@ if __name__ == "__main__":
 	loss_fn = nn.CrossEntropyLoss()
 	optimize = torch.optim.SGD(VGG3_dropout_BN.parameters(), lr=0.001, momentum=0.9)
 
-	train(5, train_dataloader, test_dataloader, VGG3_dropout_BN, loss_fn, optimize)
+	train(400, train_dataloader, test_dataloader, VGG3_dropout_BN, loss_fn, optimize)
 	evaluate(VGG3_dropout_BN, test_dataloader, loss_fn)
 
 	# print(f"training lost list: {train_model_training_loss_ls}")
