@@ -1,7 +1,6 @@
 from VGG1 import VGG1
 from VGG2 import VGG2
 from VGG3 import VGG3
-from VGG3_dropout_BN import VGG3_dropout_BN
 
 import torch
 from torch import nn
@@ -223,11 +222,8 @@ if __name__ == "__main__":
 	# VGG2 = VGG2().to(device)
 	# VGG2.apply(he_initalization)
 
-	# VGG3 = VGG3().to(device)
-	# VGG3.apply(he_initalization)
-
-	VGG3_dropout_BN = VGG3_dropout_BN().to(device)
-	VGG3_dropout_BN.apply(he_initalization)
+	VGG3 = VGG3().to(device)
+	VGG3.apply(he_initalization)
 
 	# for name, param in model.named_parameters():
 	#     if param.requires_grad:
@@ -235,10 +231,10 @@ if __name__ == "__main__":
 
 	# defining loss function and optimizer
 	loss_fn = nn.CrossEntropyLoss()
-	optimize = torch.optim.SGD(VGG3_dropout_BN.parameters(), lr=0.001, momentum=0.9)
+	optimize = torch.optim.SGD(VGG3.parameters(), lr=0.001, momentum=0.9)
 
-	train(400, train_dataloader, test_dataloader, VGG3_dropout_BN, loss_fn, optimize)
-	evaluate(VGG3_dropout_BN, test_dataloader, loss_fn)
+	train(400, train_dataloader, test_dataloader, VGG3, loss_fn, optimize)
+	evaluate(VGG3, test_dataloader, loss_fn)
 
 	# print(f"training lost list: {train_model_training_loss_ls}")
 	# print(f"validation lost list: {validation_model_training_loss_ls}")
