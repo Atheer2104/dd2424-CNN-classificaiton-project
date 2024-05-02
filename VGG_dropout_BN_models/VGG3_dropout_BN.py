@@ -1,9 +1,9 @@
 import torch
 from torch import nn
-from torch.nn.modules.dropout import Dropout
 
-# the default momentum in pytorch is 0.1, but in keras it's 0.99, therefore chosing this number
-momentum_BN = 0.99
+# the default momentum in pytorch is 0.1, but in keras it's 0.99, and pytorch compute the opposite of how it's done 
+# in the keras library but it should be 0.01 in pytorch
+momentum_BN = 0.01
 
 # this is the implementation of a single VGG block with dropout and BN
 class _VGG_Block_dropout_BN(nn.Module):
@@ -11,11 +11,11 @@ class _VGG_Block_dropout_BN(nn.Module):
         super().__init__()
         self.block = nn.Sequential(
             nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1),
-            nn.ReLU(inplace=True),
             nn.BatchNorm2d(out_channels, momentum=momentum_BN),
+            nn.ReLU(inplace=True),
             nn.Conv2d(out_channels, out_channels, kernel_size=3, padding=1),
-            nn.ReLU(inplace=True),
             nn.BatchNorm2d(out_channels, momentum=momentum_BN),
+            nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=(2, 2)),
             nn.Dropout(p=dropout_rate),
         )
