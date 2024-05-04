@@ -37,7 +37,7 @@ def plot_training_validation_loss_and_accuracy():
     plt.xlabel("Epochs")
     plt.ylabel("Accuracy")
     plt.legend()
-
+    plt.savefig('STEPDECAY.png')
     plt.show()
 
 
