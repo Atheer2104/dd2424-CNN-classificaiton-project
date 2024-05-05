@@ -10,14 +10,15 @@ class _VGG_Block_dropout_BN(nn.Module):
     def __init__(self, in_channels, out_channels, dropout_rate):
         super().__init__()
         self.block = nn.Sequential(
-            nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1),
-            nn.BatchNorm2d(out_channels, momentum=momentum_BN),
+            nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1),            
             nn.ReLU(inplace=True),
-            nn.Conv2d(out_channels, out_channels, kernel_size=3, padding=1),
-            nn.BatchNorm2d(out_channels, momentum=momentum_BN),
-            nn.ReLU(inplace=True),
-            nn.MaxPool2d(kernel_size=(2, 2)),
             nn.Dropout(p=dropout_rate),
+            nn.BatchNorm2d(out_channels, momentum=momentum_BN),
+            nn.Conv2d(out_channels, out_channels, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Dropout(p=dropout_rate),
+            nn.BatchNorm2d(out_channels, momentum=momentum_BN),
+            nn.MaxPool2d(kernel_size=(2, 2))
         )
 
     def forward(self, x):
@@ -33,8 +34,8 @@ class VGG3_dropout_BN(nn.Module):
         self.classifier = nn.Sequential(
             nn.Linear(128 * 4 * 4, 128),
             nn.ReLU(inplace=True),
-            nn.BatchNorm1d(128, momentum=momentum_BN),
             nn.Dropout(0.5),
+            nn.BatchNorm1d(128, momentum=momentum_BN),
             nn.Linear(128, 10),
         )
 
