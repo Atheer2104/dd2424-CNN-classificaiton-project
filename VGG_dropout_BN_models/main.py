@@ -6,6 +6,7 @@ from VGG1_BN import VGG1_BN
 from VGG2_BN import VGG2_BN
 from VGG3_BN import VGG3_BN
 
+from VGG3_BN_dropout import VGG3_BN_dropout
 from VGG3_dropout_BN import VGG3_dropout_BN
 
 import torch
@@ -72,11 +73,11 @@ def load_dataset():
             # convert the input from PIL image to Image which is analogy to a torch tensor
             v2.ToImage(),
             # performs random horizontal fliping where the default probability for flip is 0.5
-            # v2.RandomHorizontalFlip(),
+            v2.RandomHorizontalFlip(),
             # here we are applying the height and width shift, we use the affine function where we can apply multiple
             # transformations at once, one which you have to apply is degrees which is to rotation the image by in our case
             # we don't want any transformations
-            # v2.RandomAffine(degrees = 0, translate= (0.1, 0.1)),
+            v2.RandomAffine(degrees=0, translate=(0.1, 0.1)),
             # changes the type of tensor to float32 and performs scaling so the value will be between [0,1] this happens
             # because the target type is float32
             v2.ToDtype(torch.float32, scale=True),
@@ -240,32 +241,27 @@ if __name__ == "__main__":
         batch_size, trainig_data, test_data
     )
 
-    VGG1_dropout = VGG1_dropout().to(device)
-    VGG1_dropout.apply(he_initalization)
+    # VGG1_dropout = VGG1_dropout().to(device)
+    # VGG1_dropout.apply(he_initalization)
 
-    VGG2_dropout = VGG2_dropout().to(device)
-    VGG2_dropout.apply(he_initalization)
+    # VGG2_dropout = VGG2_dropout().to(device)
+    # VGG2_dropout.apply(he_initalization)
 
-    VGG3_dropout = VGG3_dropout().to(device)
-    VGG3_dropout.apply(he_initalization)
+    # VGG3_dropout = VGG3_dropout().to(device)
+    # VGG3_dropout.apply(he_initalization)
 
     # print(summary(VGG1_dropout, input_size=(3, 32, 32)))
     # print(summary(VGG2_dropout, input_size=(3, 32, 32)))
     # print(summary(VGG3_dropout, input_size=(3, 32, 32)))
 
-    # VGG3_dropout_BN = VGG3_dropout_BN().to(device)
-    # VGG3_dropout_BN.apply(he_initalization)
+    # VGG1_BN = VGG1_BN().to(device)
+    # VGG1_BN.apply(he_initalization)
 
-    # print(summary(VGG3_dropout_BN, input_size=(3, 32, 32)))
+    # VGG2_BN = VGG2_BN().to(device)
+    # VGG2_BN.apply(he_initalization)
 
-    VGG1_BN = VGG1_BN().to(device)
-    VGG1_BN.apply(he_initalization)
-
-    VGG2_BN = VGG2_BN().to(device)
-    VGG2_BN.apply(he_initalization)
-
-    VGG3_BN = VGG3_BN().to(device)
-    VGG3_BN.apply(he_initalization)
+    # VGG3_BN = VGG3_BN().to(device)
+    # VGG3_BN.apply(he_initalization)
 
     # print(summary(VGG1_BN, input_size=(3, 32, 32)))
     # print(summary(VGG2_BN, input_size=(3, 32, 32)))
@@ -274,44 +270,67 @@ if __name__ == "__main__":
     # defining loss function
     loss_fn = nn.CrossEntropyLoss()
 
-    print("----------------- working on VGG1 dropout ---------------------")
-    optimize = torch.optim.SGD(VGG1_dropout.parameters(), lr=0.001, momentum=0.9)
-    train(100, train_dataloader, test_dataloader, VGG1_dropout, loss_fn, optimize)
-    evaluate(VGG1_dropout, test_dataloader, loss_fn)
+    # print("----------------- working on VGG1 dropout ---------------------")
+    # optimize = torch.optim.SGD(VGG1_dropout.parameters(), lr=0.001, momentum=0.9)
+    # train(100, train_dataloader, test_dataloader, VGG1_dropout, loss_fn, optimize)
+    # evaluate(VGG1_dropout, test_dataloader, loss_fn)
+    # plot_training_validation_loss_and_accuracy()
+    # clear_histogram()
+
+    # print("----------------- working on VGG2 dropout ---------------------")
+    # optimize = torch.optim.SGD(VGG2_dropout.parameters(), lr=0.001, momentum=0.9)
+    # train(100, train_dataloader, test_dataloader, VGG2_dropout, loss_fn, optimize)
+    # evaluate(VGG2_dropout, test_dataloader, loss_fn)
+    # plot_training_validation_loss_and_accuracy()
+    # clear_histogram()
+
+    # print("----------------- working on VGG3 dropout ---------------------")
+    # optimize = torch.optim.SGD(VGG3_dropout.parameters(), lr=0.001, momentum=0.9)
+    # train(100, train_dataloader, test_dataloader, VGG3_dropout, loss_fn, optimize)
+    # evaluate(VGG3_dropout, test_dataloader, loss_fn)
+    # plot_training_validation_loss_and_accuracy()
+    # clear_histogram()
+
+    # print("----------------- working on VGG1 BN ---------------------")
+    # optimize = torch.optim.SGD(VGG1_BN.parameters(), lr=0.001, momentum=0.9)
+    # train(100, train_dataloader, test_dataloader, VGG1_BN, loss_fn, optimize)
+    # evaluate(VGG1_BN, test_dataloader, loss_fn)
+    # plot_training_validation_loss_and_accuracy()
+    # clear_histogram()
+
+    # print("----------------- working on VGG2 BN ---------------------")
+    # optimize = torch.optim.SGD(VGG2_BN.parameters(), lr=0.001, momentum=0.9)
+    # train(100, train_dataloader, test_dataloader, VGG2_BN, loss_fn, optimize)
+    # evaluate(VGG2_BN, test_dataloader, loss_fn)
+    # plot_training_validation_loss_and_accuracy()
+    # clear_histogram()
+
+    # print("----------------- working on VGG3 BN ---------------------")
+    # optimize = torch.optim.SGD(VGG3_BN.parameters(), lr=0.001, momentum=0.9)
+    # train(100, train_dataloader, test_dataloader, VGG3_BN, loss_fn, optimize)
+    # evaluate(VGG3_BN, test_dataloader, loss_fn)
+    # plot_training_validation_loss_and_accuracy()
+    # clear_histogram()
+
+    VGG3_BN_dropout = VGG3_BN_dropout().to(device)
+    VGG3_BN_dropout.apply(he_initalization)
+
+    VGG3_dropout_BN = VGG3_dropout_BN().to(device)
+    VGG3_dropout_BN.apply(he_initalization)
+
+    # print(summary(VGG3_BN_dropout, input_size=(3, 32, 32)))
+    # print(summary(VGG3_dropout_BN, input_size=(3, 32, 32)))
+
+    print("----------------- working on VGG3 BN & Dropout ---------------------")
+    optimize = torch.optim.SGD(VGG3_BN_dropout.parameters(), lr=0.001, momentum=0.9)
+    train(200, train_dataloader, test_dataloader, VGG3_BN_dropout, loss_fn, optimize)
+    evaluate(VGG3_BN_dropout, test_dataloader, loss_fn)
     plot_training_validation_loss_and_accuracy()
     clear_histogram()
-
-    print("----------------- working on VGG2 dropout ---------------------")
-    optimize = torch.optim.SGD(VGG2_dropout.parameters(), lr=0.001, momentum=0.9)
-    train(100, train_dataloader, test_dataloader, VGG2_dropout, loss_fn, optimize)
-    evaluate(VGG2_dropout, test_dataloader, loss_fn)
-    plot_training_validation_loss_and_accuracy()
-    clear_histogram()
-
-    print("----------------- working on VGG3 dropout ---------------------")
-    optimize = torch.optim.SGD(VGG3_dropout.parameters(), lr=0.001, momentum=0.9)
-    train(100, train_dataloader, test_dataloader, VGG3_dropout, loss_fn, optimize)
-    evaluate(VGG3_dropout, test_dataloader, loss_fn)
-    plot_training_validation_loss_and_accuracy()
-    clear_histogram()
-
-    print("----------------- working on VGG1 BN ---------------------")
-    optimize = torch.optim.SGD(VGG1_BN.parameters(), lr=0.001, momentum=0.9)
-    train(100, train_dataloader, test_dataloader, VGG1_BN, loss_fn, optimize)
-    evaluate(VGG1_BN, test_dataloader, loss_fn)
-    plot_training_validation_loss_and_accuracy()
-    clear_histogram()
-
-    print("----------------- working on VGG2 BN ---------------------")
-    optimize = torch.optim.SGD(VGG2_BN.parameters(), lr=0.001, momentum=0.9)
-    train(100, train_dataloader, test_dataloader, VGG2_BN, loss_fn, optimize)
-    evaluate(VGG2_BN, test_dataloader, loss_fn)
-    plot_training_validation_loss_and_accuracy()
-    clear_histogram()
-
-    print("----------------- working on VGG3 BN ---------------------")
-    optimize = torch.optim.SGD(VGG3_BN.parameters(), lr=0.001, momentum=0.9)
-    train(100, train_dataloader, test_dataloader, VGG3_BN, loss_fn, optimize)
-    evaluate(VGG3_BN, test_dataloader, loss_fn)
+    
+    print("----------------- working on VGG3 Dropout & BN ---------------------")
+    optimize = torch.optim.SGD(VGG3_dropout_BN.parameters(), lr=0.001, momentum=0.9)
+    train(200, train_dataloader, test_dataloader, VGG3_dropout_BN, loss_fn, optimize)
+    evaluate(VGG3_dropout_BN, test_dataloader, loss_fn)
     plot_training_validation_loss_and_accuracy()
     clear_histogram()
