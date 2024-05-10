@@ -105,12 +105,9 @@ class ResNet(nn.Module):
         x = self.layer2(x)
         x = self.layer3(x)
 
-        print(x.shape)
         x = self.avgpool(x)
 
-        print(x.shape)
         x = torch.flatten(x, 1)
-        print(x.shape)
         x = self.classifier(x)
         return x
 
