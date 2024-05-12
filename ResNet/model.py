@@ -126,3 +126,6 @@ def resnet44():
 
 def resnet56():
     return ResNet(ResNetBlock, [9, 9, 9])
+
+def resnet110():
+    return ResNet(ResNetBlock, [18, 18, 18])
