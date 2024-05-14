@@ -68,7 +68,7 @@ def train(
     # set the model on training model
     for current_epoch in range(0, epochs):
         print(f"current epoch: {current_epoch}")
-        #print('current lr {:.5e}'.format(optimizer.param_groups[0]['lr']))
+        # print('current lr {:.5e}'.format(optimizer.param_groups[0]['lr']))
 
         for batch_index, (X, y) in enumerate(training_dataloader):
             model.train()
@@ -114,18 +114,33 @@ if __name__ == "__main__":
 
     validation_set_size = 5000
 
-    validation_loader, training_dataloader = ldu.load_CIFAR10_train_validation(
-        train_batch_size, train_transformations, validation_set_size
-    )
-    test_dataloader = ldu.load_CIFAR10_test(test_batch_size, test_transformations)
+    # if true use cifar 10 dataset otherwise cifar 100 data set is used
+    use_Cifar10 = False
+    use_her_parameters = True
 
-    resnet20 = model.resnet20().to(device)
+    # cifar 10 dataset
+    if use_Cifar10 is True:
+        print("Dataset is CIFAR10")
+        validation_loader, training_dataloader = ldu.load_CIFAR10_train_validation(
+            train_batch_size, train_transformations, validation_set_size
+        )
+        test_dataloader = ldu.load_CIFAR10_test(test_batch_size, test_transformations)
+        num_classes = 10
+    else:
+        print("Dataset is CIFAR100")
+        validation_loader, training_dataloader = ldu.load_CIFAR100_train_validation(
+            train_batch_size, train_transformations, validation_set_size
+        )
+        test_dataloader = ldu.load_CIFAR100_test(test_batch_size, test_transformations)
+        num_classes = 100
+
+    resnet20 = model.resnet20(num_classes).to(device)
     resnet20.apply(he_initalization)
 
-    resnet56 = model.resnet56().to(device)
+    resnet56 = model.resnet56(num_classes).to(device)
     resnet56.apply(he_initalization)
 
-    resnet110 = model.resnet110().to(device)
+    resnet110 = model.resnet110(num_classes).to(device)
     resnet110.apply(he_initalization)
 
     # for name, param in resnet20.named_parameters():
@@ -138,74 +153,88 @@ if __name__ == "__main__":
     # print(summary(resnet110, input_size=(3, 32, 32)))
 
     # defining loss function
-    loss_fn = nn.CrossEntropyLoss(label_smoothing=0.1)
+    if use_her_parameters is True:
+        print("using cross entropy loss with label smoothing")
+        loss_fn = nn.CrossEntropyLoss(label_smoothing=0.1)
+    else:
+        print("using normal cross entropy loss")
+        loss_fn = nn.CrossEntropyLoss()
 
-    # print("------------- working on ResNet20 -----------------")
-    # # sgd_optimizer = torch.optim.SGD(
-    # #     resnet20.parameters(), lr=0.1, momentum=0.9, weight_decay=0.0001
-    # # )
+    print("------------- working on ResNet20 -----------------")
+    if use_her_parameters is False:
+        print("optimizer is SGD")
+        optimizer = torch.optim.SGD(
+            resnet20.parameters(), lr=0.1, momentum=0.9, weight_decay=0.0001
+        )
+    else:
+        print("optimizer is AdamW")
+        optimizer = torch.optim.AdamW(
+            resnet20.parameters(), lr=0.1, weight_decay=0.0001
+        )
 
-    # adam_optimizer = torch.optim.AdamW(
-    #     resnet20.parameters(), lr=0.1, weight_decay=0.0001
-    # )
+    lr_scheduler = torch.optim.lr_scheduler.MultiStepLR(
+        optimizer, [100, 150], gamma=0.1
+    )
+    train(
+        200,
+        training_dataloader,
+        validation_loader,
+        resnet20,
+        loss_fn,
+        optimizer,
+        lr_scheduler,
+    )
+    utils.evaluate(resnet20, test_dataloader, loss_fn, device)
+    utils.plot_training_validation_loss_and_accuracy()
+    utils.clear_histogram()
 
-    # lr_scheduler = torch.optim.lr_scheduler.MultiStepLR(
-    #     adam_optimizer, [100, 150], gamma=0.1
-    # )
-    # train(
-    #     200,
-    #     training_dataloader,
-    #     validation_loader,
-    #     resnet20,
-    #     loss_fn,
-    #     adam_optimizer,
-    #     lr_scheduler,
-    # )
-    # utils.evaluate(resnet20, test_dataloader, loss_fn, device)
-    # utils.plot_training_validation_loss_and_accuracy()
-    # utils.clear_histogram()
+    print("------------- working on ResNet56 -----------------")
+    if use_her_parameters is False:
+        print("optimizer is SGD")
+        optimizer = torch.optim.SGD(
+            resnet56.parameters(), lr=0.1, momentum=0.9, weight_decay=0.0001
+        )
+    else:
+        print("optimizer is AdamW")
+        optimizer = torch.optim.AdamW(
+            resnet56.parameters(), lr=0.1, weight_decay=0.0001
+        )
 
-    # print("------------- working on ResNet56 -----------------")
-    # # sgd_optimizer = torch.optim.SGD(
-    # #     resnet56.parameters(), lr=0.1, momentum=0.9, weight_decay=0.0001
-    # # )
-
-    # adam_optimizer = torch.optim.AdamW(
-    #     resnet56.parameters(), lr=0.1, weight_decay=0.0001
-    # )
-
-    # lr_scheduler = torch.optim.lr_scheduler.MultiStepLR(
-    #     adam_optimizer, [100, 150], gamma=0.1
-    # )
-    # train(
-    #     200,
-    #     training_dataloader,
-    #     validation_loader,
-    #     resnet56,
-    #     loss_fn,
-    #     adam_optimizer,
-    #     lr_scheduler,
-    # )
-    # utils.evaluate(resnet56, test_dataloader, loss_fn, device)
-    # utils.plot_training_validation_loss_and_accuracy()
-    # utils.clear_histogram()
+    lr_scheduler = torch.optim.lr_scheduler.MultiStepLR(
+        optimizer, [100, 150], gamma=0.1
+    )
+    train(
+        200,
+        training_dataloader,
+        validation_loader,
+        resnet56,
+        loss_fn,
+        optimizer,
+        lr_scheduler,
+    )
+    utils.evaluate(resnet56, test_dataloader, loss_fn, device)
+    utils.plot_training_validation_loss_and_accuracy()
+    utils.clear_histogram()
 
     print("------------------- working on ResNet110 -----------------------")
     # here we start with lr - 0.01 but after the first epoch this will be 0.1 and still divide it by 10 at 32k and 48k iterations
-    # sgd_optimizer = torch.optim.SGD(
-    #     resnet110.parameters(), lr=0.01, momentum=0.9, weight_decay=0.0001
-    # )
-
-    adam_optimizer = torch.optim.AdamW(
-        resnet110.parameters(), lr=0.01, weight_decay=0.0001
-    )
+    if use_her_parameters is False:
+        print("optimizer is SGD")
+        optimizer = torch.optim.SGD(
+            resnet110.parameters(), lr=0.01, momentum=0.9, weight_decay=0.0001
+        )
+    else:
+        print("optimizer is AdamW")
+        optimizer = torch.optim.AdamW(
+            resnet110.parameters(), lr=0.01, weight_decay=0.0001
+        )
 
     # here wer are increasing the lr after the first epoch
     increase_lr_after_first_epoch_scheduler = torch.optim.lr_scheduler.MultiStepLR(
-        adam_optimizer, [1], gamma=10
+        optimizer, [1], gamma=10
     )
     normal_multi_step_lr_scheduler = torch.optim.lr_scheduler.MultiStepLR(
-        adam_optimizer, [100, 150], gamma=0.1
+        optimizer, [100, 150], gamma=0.1
     )
 
     lr_scheduler = torch.optim.lr_scheduler.ChainedScheduler(
@@ -217,7 +246,7 @@ if __name__ == "__main__":
         validation_loader,
         resnet110,
         loss_fn,
-        adam_optimizer,
+        optimizer,
         lr_scheduler,
     )
     utils.evaluate(resnet110, test_dataloader, loss_fn, device)
