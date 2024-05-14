@@ -15,10 +15,6 @@ from helpers import load_data_util as ldu
 
 def he_initalization(m):
     for i in m.modules():
-        if isinstance(i, torch.nn.Linear):
-            torch.nn.init.kaiming_normal_(i.weight, mode="fan_in", nonlinearity="relu")
-            torch.nn.init.zeros_(i.bias)
-
         if isinstance(i, torch.nn.Conv2d):
             torch.nn.init.kaiming_normal_(i.weight, mode="fan_in", nonlinearity="relu")
 
@@ -115,8 +111,8 @@ if __name__ == "__main__":
     validation_set_size = 5000
 
     # if true use cifar 10 dataset otherwise cifar 100 data set is used
-    use_Cifar10 = False
-    use_her_parameters = True
+    use_Cifar10 = True
+    use_her_parameters = False
 
     # cifar 10 dataset
     if use_Cifar10 is True:
@@ -143,14 +139,14 @@ if __name__ == "__main__":
     resnet110 = model.resnet110(num_classes).to(device)
     resnet110.apply(he_initalization)
 
+	# ! torch summary only works with cpu or cuda and not mps
+    # print(summary(resnet20.to("cpu"), input_size=(3, 32, 32)))
+    # print(summary(resnet56.to("cpu"), input_size=(3, 32, 32)))
+    # print(summary(resnet110.to("cpu"), input_size=(3, 32, 32)))
+
     # for name, param in resnet20.named_parameters():
     #     if param.requires_grad:
     #         print(name, param.device)
-
-    # ! torch summary only works with cpu or cuda and not mps
-    # print(summary(resnet20.to("cpu"), input_size=(3, 32, 32)))
-    # print(summary(resnet56.to("cpu"), input_size=(3, 32, 32)))
-    # print(summary(resnet110, input_size=(3, 32, 32)))
 
     # defining loss function
     if use_her_parameters is True:
