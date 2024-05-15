@@ -37,8 +37,7 @@ def plot_training_validation_loss_and_accuracy():
     plt.xlabel("Epochs")
     plt.ylabel("Accuracy")
     plt.legend()
-
-    plt.savefig('STEPDECAY.png')
+    plt.savefig('cosan_warmup.png')
     plt.show()
 
 
@@ -138,11 +137,15 @@ def compute_accuracy_on_whole_dataloader(model, dataloader):
 
 
 def train(
-    epochs, training_dataloader, validation_dataloader, model, loss_fn, optimizer, scheduler
+    epochs, training_dataloader, validation_dataloader, model, loss_fn, optimizer,scheduler,WARMUP_EPOCHS,init_lr= 0.001
 ):
     # set the model on training model
     for current_epoch in range(0, epochs):
         print(f"current epoch: {current_epoch}")
+
+        if current_epoch <= WARMUP_EPOCHS: # warmup
+            for grp in optimize.param_groups:
+                grp['lr'] = init_lr * (current_epoch + 1) / WARMUP_EPOCHS
 
         for batch_index, (X, y) in enumerate(training_dataloader):
             model.train()
@@ -163,8 +166,11 @@ def train(
 
             # Adjust learning weights
             optimizer.step()
+
         
-        scheduler.step()
+        if current_epoch > WARMUP_EPOCHS: # cosine annealing fully warmed up
+            scheduler.step()
+        
         # getting valiation loss now
         model.eval()
 
@@ -216,22 +222,19 @@ if __name__ == "__main__":
 
     VGG3 = VGG3().to(device)
     VGG3.apply(he_initalization)
-
+    EPOCHS = 100
+    WARMUP_EPOCHS = 15
     # for name, param in model.named_parameters():
     #     if param.requires_grad:
     #         print(name, param.data)
 
-    EPOCHS = 100
-
     # defining loss function and optimizer
     loss_fn = nn.CrossEntropyLoss()
     optimize = torch.optim.SGD(VGG3.parameters(), lr=0.001, momentum=0.9)
-    #Step Decay learning rate scheduler
-    scheduler = torch.optim.lr_scheduler.StepLR(optimize, step_size=(EPOCHS)/3, gamma=0.1)
-
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimize, (EPOCHS - WARMUP_EPOCHS)) 
     start_total_time = time.time()
 
-    train(EPOCHS, train_dataloader, test_dataloader, VGG3, loss_fn, optimize,scheduler)  # training
+    train(EPOCHS, train_dataloader, test_dataloader, VGG3, loss_fn, optimize,scheduler,WARMUP_EPOCHS)  # training
     train_time = time.time() - start_total_time
     print(f"Training Time: {train_time}")
 

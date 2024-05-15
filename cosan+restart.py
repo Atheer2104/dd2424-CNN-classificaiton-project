@@ -37,8 +37,7 @@ def plot_training_validation_loss_and_accuracy():
     plt.xlabel("Epochs")
     plt.ylabel("Accuracy")
     plt.legend()
-
-    plt.savefig('STEPDECAY.png')
+    plt.savefig('cosan_restart.png')
     plt.show()
 
 
@@ -138,7 +137,7 @@ def compute_accuracy_on_whole_dataloader(model, dataloader):
 
 
 def train(
-    epochs, training_dataloader, validation_dataloader, model, loss_fn, optimizer, scheduler
+    epochs, training_dataloader, validation_dataloader, model, loss_fn, optimizer,scheduler
 ):
     # set the model on training model
     for current_epoch in range(0, epochs):
@@ -163,7 +162,7 @@ def train(
 
             # Adjust learning weights
             optimizer.step()
-        
+
         scheduler.step()
         # getting valiation loss now
         model.eval()
@@ -216,19 +215,15 @@ if __name__ == "__main__":
 
     VGG3 = VGG3().to(device)
     VGG3.apply(he_initalization)
-
+    EPOCHS = 100
     # for name, param in model.named_parameters():
     #     if param.requires_grad:
     #         print(name, param.data)
 
-    EPOCHS = 100
-
     # defining loss function and optimizer
     loss_fn = nn.CrossEntropyLoss()
     optimize = torch.optim.SGD(VGG3.parameters(), lr=0.001, momentum=0.9)
-    #Step Decay learning rate scheduler
-    scheduler = torch.optim.lr_scheduler.StepLR(optimize, step_size=(EPOCHS)/3, gamma=0.1)
-
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(optimize, T_0=10, T_mult=1)  
     start_total_time = time.time()
 
     train(EPOCHS, train_dataloader, test_dataloader, VGG3, loss_fn, optimize,scheduler)  # training
