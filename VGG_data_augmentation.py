@@ -40,7 +40,6 @@ def plot_training_validation_loss_and_accuracy():
 def load_dataset():
 
 	# defining the transfmorations that will be done on the image
-
 	transforms = v2.Compose([
 		# convert the input from PIL image to Image which is analogy to a torch tensor
 		v2.ToImage(),

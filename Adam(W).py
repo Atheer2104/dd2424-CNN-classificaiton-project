@@ -1,6 +1,6 @@
 from VGG1 import VGG1
 from VGG2 import VGG2
-from VGG3 import VGG3
+from VGG3_dropout import VGG3
 import torch
 from torch import nn
 from torchvision import datasets
@@ -38,7 +38,6 @@ def plot_training_validation_loss_and_accuracy():
     plt.ylabel("Accuracy")
     plt.legend()
 
-    plt.savefig('STEPDECAY.png')
     plt.show()
 
 
@@ -138,7 +137,7 @@ def compute_accuracy_on_whole_dataloader(model, dataloader):
 
 
 def train(
-    epochs, training_dataloader, validation_dataloader, model, loss_fn, optimizer, scheduler
+    epochs, training_dataloader, validation_dataloader, model, loss_fn, optimizer
 ):
     # set the model on training model
     for current_epoch in range(0, epochs):
@@ -163,8 +162,7 @@ def train(
 
             # Adjust learning weights
             optimizer.step()
-        
-        scheduler.step()
+
         # getting valiation loss now
         model.eval()
 
@@ -221,17 +219,18 @@ if __name__ == "__main__":
     #     if param.requires_grad:
     #         print(name, param.data)
 
-    EPOCHS = 100
-
     # defining loss function and optimizer
     loss_fn = nn.CrossEntropyLoss()
-    optimize = torch.optim.SGD(VGG3.parameters(), lr=0.001, momentum=0.9)
-    #Step Decay learning rate scheduler
-    scheduler = torch.optim.lr_scheduler.StepLR(optimize, step_size=(EPOCHS)/3, gamma=0.1)
+
+    # Adam
+    optimize = torch.optim.Adam(VGG3.parameters(), lr=0.001)
+
+    # AdamW
+    # optimize = torch.optim.AdamW(VGG3.parameters(), lr=0.001)
 
     start_total_time = time.time()
 
-    train(EPOCHS, train_dataloader, test_dataloader, VGG3, loss_fn, optimize,scheduler)  # training
+    train(100, train_dataloader, test_dataloader, VGG3, loss_fn, optimize)  # training
     train_time = time.time() - start_total_time
     print(f"Training Time: {train_time}")
 
