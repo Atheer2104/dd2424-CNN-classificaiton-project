@@ -111,7 +111,7 @@ def evaluate(model, dataloader, loss_fn):
 			pred = model(X)
 
 			# getting total loss
-			total_loss += loss_fn([64,'all',pred], y).item()
+			total_loss += loss_fn(pred, y).item()
 
 			num_correct += (pred.argmax(1) == y).type(torch.float).sum().item()
 
@@ -131,7 +131,7 @@ def compute_loss_on_whole_dataloader(model, dataloader):
 		# make predictions
 		validation_pred = model(valX.to(device))
 		# compute loss
-		validation_loss = loss_fn([64,'all',validation_pred], valy.to(device))
+		validation_loss = loss_fn(validation_pred, valy.to(device))
 		# update running loss
 		running_loss += validation_loss.item()
 
@@ -171,8 +171,8 @@ def train(
 			# here we are making the prediction
 			trainig_pred = model(X)
 			# computing the loss from our prediction and true val
-			training_loss = loss_fn([64,'all',trainig_pred], y)
-
+			training_loss = loss_fn(trainig_pred, y)
+			print(training_loss)
 			# have to zero out the gradients, for each batch since they can be accumulated
 			optimizer.zero_grad()
 
@@ -239,7 +239,7 @@ if __name__ == "__main__":
 	#         print(name, param.data)
 
 	# defining loss function and optimizer
-	##loss_fn = nn.CrossEntropyLoss()
+	#loss_fn = nn.CrossEntropyLoss()
 	loss_fn = SupConLoss()
 	optimize = torch.optim.SGD(VGG3.parameters(), lr=0.001, momentum=0.9)
 

@@ -1,3 +1,35 @@
+
+
+import torch
+
+import torch.nn as nn
+import torch.nn.functional as F
+
+class SupConLoss(nn.Module):
+    def __init__(self, temperature=0.07):
+        super(SupConLoss, self).__init__()
+        self.temperature = temperature
+
+    def forward(self, features, labels):
+        # Normalize the feature vectors
+        features = F.normalize(features, dim=1)
+
+        # Compute pairwise cosine similarity matrix
+        similarity_matrix = torch.matmul(features, features.t())
+
+        # Exclude self-similarity and divide by temperature
+        mask = torch.eye(similarity_matrix.size(0), dtype=torch.bool).to(features.device)
+        similarity_matrix = similarity_matrix.masked_fill(mask, 0) / self.temperature
+
+        # Compute contrastive loss
+        logits = torch.cat([similarity_matrix[i][labels == labels[i]] for i in range(similarity_matrix.size(0))])
+        labels = torch.arange(logits.size(0)).to(features.device)
+        labels = labels.float()
+        loss = F.cross_entropy(logits, labels)
+
+        return loss
+
+"""
 from __future__ import print_function
 
 import torch
@@ -5,8 +37,6 @@ import torch.nn as nn
 
 
 class SupConLoss(nn.Module):
-    """Supervised Contrastive Learning: https://arxiv.org/pdf/2004.11362.pdf.
-    It also supports the unsupervised contrastive loss in SimCLR"""
     def __init__(self, temperature=0.07, contrast_mode='all',
                  base_temperature=0.07):
         super(SupConLoss, self).__init__()
@@ -15,7 +45,7 @@ class SupConLoss(nn.Module):
         self.base_temperature = base_temperature
 
     def forward(self, features, labels=None, mask=None):
-        """Compute loss for model. If both `labels` and `mask` are None,
+        Compute loss for model. If both `labels` and `mask` are None,
         it degenerates to SimCLR unsupervised loss:
         https://arxiv.org/pdf/2002.05709.pdf
 
@@ -26,7 +56,7 @@ class SupConLoss(nn.Module):
                 has the same class as sample i. Can be asymmetric.
         Returns:
             A loss scalar.
-        """
+        
         device =torch.device('cpu')
          #(torch.device('cuda')
                  # if features.is_cuda
@@ -102,7 +132,7 @@ class SupConLoss(nn.Module):
 
         return loss
 
-
+"""
 
 
 
@@ -117,31 +147,5 @@ class SupConLoss(nn.Module):
 
 
 """
-import torch
 
-import torch.nn as nn
-import torch.nn.functional as F
-
-class SupConLoss(nn.Module):
-    def __init__(self, temperature=0.07):
-        super(SupConLoss, self).__init__()
-        self.temperature = temperature
-
-    def forward(self, features, labels):
-        # Normalize the feature vectors
-        features = F.normalize(features, dim=1)
-
-        # Compute pairwise cosine similarity matrix
-        similarity_matrix = torch.matmul(features, features.t())
-
-        # Exclude self-similarity and divide by temperature
-        mask = torch.eye(similarity_matrix.size(0), dtype=torch.bool).to(features.device)
-        similarity_matrix = similarity_matrix.masked_fill(mask, 0) / self.temperature
-
-        # Compute contrastive loss
-        logits = torch.cat([similarity_matrix[i][labels == labels[i]] for i in range(similarity_matrix.size(0))])
-        labels = torch.arange(logits.size(0)).to(features.device)
-        loss = F.cross_entropy(logits, labels)
-
-        return loss
 """
