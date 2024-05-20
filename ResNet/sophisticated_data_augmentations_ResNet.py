@@ -6,8 +6,6 @@ from torchsummary import summary
 
 import model
 
-from cutmix.utils import CutMixCrossEntropyLoss
-
 import sys
 
 sys.path.append("../")
