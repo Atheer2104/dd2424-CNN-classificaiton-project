@@ -1,0 +1,813 @@
+Using cuda device
+Files already downloaded and verified
+Files already downloaded and verified
+----------------- working on VGG3 BN & Dropout ---------------------
+current epoch: 0
+Epoch: 0, Loss: 1.5942
+current epoch: 1
+Epoch: 1, Loss: 1.4610
+current epoch: 2
+Epoch: 2, Loss: 1.4374
+current epoch: 3
+Epoch: 3, Loss: 1.3345
+current epoch: 4
+Epoch: 4, Loss: 1.2858
+current epoch: 5
+Epoch: 5, Loss: 1.2028
+current epoch: 6
+Epoch: 6, Loss: 1.2595
+current epoch: 7
+Epoch: 7, Loss: 1.1164
+current epoch: 8
+Epoch: 8, Loss: 1.1115
+current epoch: 9
+Epoch: 9, Loss: 1.1421
+current epoch: 10
+Epoch: 10, Loss: 1.0673
+current epoch: 11
+Epoch: 11, Loss: 1.0033
+current epoch: 12
+Epoch: 12, Loss: 0.9867
+current epoch: 13
+Epoch: 13, Loss: 0.9877
+current epoch: 14
+Epoch: 14, Loss: 0.9006
+current epoch: 15
+Epoch: 15, Loss: 0.9366
+current epoch: 16
+Epoch: 16, Loss: 0.8681
+current epoch: 17
+Epoch: 17, Loss: 0.8124
+current epoch: 18
+Epoch: 18, Loss: 0.8594
+current epoch: 19
+Epoch: 19, Loss: 0.8021
+current epoch: 20
+Epoch: 20, Loss: 0.8409
+current epoch: 21
+Epoch: 21, Loss: 0.7900
+current epoch: 22
+Epoch: 22, Loss: 0.8249
+current epoch: 23
+Epoch: 23, Loss: 0.8209
+current epoch: 24
+Epoch: 24, Loss: 0.7633
+current epoch: 25
+Epoch: 25, Loss: 0.7367
+current epoch: 26
+Epoch: 26, Loss: 0.7234
+current epoch: 27
+Epoch: 27, Loss: 0.7257
+current epoch: 28
+Epoch: 28, Loss: 0.7332
+current epoch: 29
+Epoch: 29, Loss: 0.7767
+current epoch: 30
+Epoch: 30, Loss: 0.6723
+current epoch: 31
+Epoch: 31, Loss: 0.6493
+current epoch: 32
+Epoch: 32, Loss: 0.6631
+current epoch: 33
+Epoch: 33, Loss: 0.6700
+current epoch: 34
+Epoch: 34, Loss: 0.6785
+current epoch: 35
+Epoch: 35, Loss: 0.6654
+current epoch: 36
+Epoch: 36, Loss: 0.6799
+current epoch: 37
+Epoch: 37, Loss: 0.6997
+current epoch: 38
+Epoch: 38, Loss: 0.6462
+current epoch: 39
+Epoch: 39, Loss: 0.6940
+current epoch: 40
+Epoch: 40, Loss: 0.6891
+current epoch: 41
+Epoch: 41, Loss: 0.6003
+current epoch: 42
+Epoch: 42, Loss: 0.6711
+current epoch: 43
+Epoch: 43, Loss: 0.6096
+current epoch: 44
+Epoch: 44, Loss: 0.6220
+current epoch: 45
+Epoch: 45, Loss: 0.6240
+current epoch: 46
+Epoch: 46, Loss: 0.5814
+current epoch: 47
+Epoch: 47, Loss: 0.5593
+current epoch: 48
+Epoch: 48, Loss: 0.5851
+current epoch: 49
+Epoch: 49, Loss: 0.5414
+current epoch: 50
+Epoch: 50, Loss: 0.5927
+current epoch: 51
+Epoch: 51, Loss: 0.5554
+current epoch: 52
+Epoch: 52, Loss: 0.5429
+current epoch: 53
+Epoch: 53, Loss: 0.5813
+current epoch: 54
+Epoch: 54, Loss: 0.5497
+current epoch: 55
+Epoch: 55, Loss: 0.5333
+current epoch: 56
+Epoch: 56, Loss: 0.5231
+current epoch: 57
+Epoch: 57, Loss: 0.5601
+current epoch: 58
+Epoch: 58, Loss: 0.5468
+current epoch: 59
+Epoch: 59, Loss: 0.5298
+current epoch: 60
+Epoch: 60, Loss: 0.5409
+current epoch: 61
+Epoch: 61, Loss: 0.5416
+current epoch: 62
+Epoch: 62, Loss: 0.5404
+current epoch: 63
+Epoch: 63, Loss: 0.5266
+current epoch: 64
+Epoch: 64, Loss: 0.5413
+current epoch: 65
+Epoch: 65, Loss: 0.4775
+current epoch: 66
+Epoch: 66, Loss: 0.4918
+current epoch: 67
+Epoch: 67, Loss: 0.4912
+current epoch: 68
+Epoch: 68, Loss: 0.4804
+current epoch: 69
+Epoch: 69, Loss: 0.4759
+current epoch: 70
+Epoch: 70, Loss: 0.4664
+current epoch: 71
+Epoch: 71, Loss: 0.4775
+current epoch: 72
+Epoch: 72, Loss: 0.4524
+current epoch: 73
+Epoch: 73, Loss: 0.4791
+current epoch: 74
+Epoch: 74, Loss: 0.4404
+current epoch: 75
+Epoch: 75, Loss: 0.4686
+current epoch: 76
+Epoch: 76, Loss: 0.4467
+current epoch: 77
+Epoch: 77, Loss: 0.4486
+current epoch: 78
+Epoch: 78, Loss: 0.4840
+current epoch: 79
+Epoch: 79, Loss: 0.4504
+current epoch: 80
+Epoch: 80, Loss: 0.4918
+current epoch: 81
+Epoch: 81, Loss: 0.4879
+current epoch: 82
+Epoch: 82, Loss: 0.4875
+current epoch: 83
+Epoch: 83, Loss: 0.4558
+current epoch: 84
+Epoch: 84, Loss: 0.4520
+current epoch: 85
+Epoch: 85, Loss: 0.4466
+current epoch: 86
+Epoch: 86, Loss: 0.4062
+current epoch: 87
+Epoch: 87, Loss: 0.4526
+current epoch: 88
+Epoch: 88, Loss: 0.4417
+current epoch: 89
+Epoch: 89, Loss: 0.3999
+current epoch: 90
+Epoch: 90, Loss: 0.4175
+current epoch: 91
+Epoch: 91, Loss: 0.4085
+current epoch: 92
+Epoch: 92, Loss: 0.3873
+current epoch: 93
+Epoch: 93, Loss: 0.4136
+current epoch: 94
+Epoch: 94, Loss: 0.4365
+current epoch: 95
+Epoch: 95, Loss: 0.4107
+current epoch: 96
+Epoch: 96, Loss: 0.3929
+current epoch: 97
+Epoch: 97, Loss: 0.3826
+current epoch: 98
+Epoch: 98, Loss: 0.4027
+current epoch: 99
+Epoch: 99, Loss: 0.3695
+current epoch: 100
+Epoch: 100, Loss: 0.4026
+current epoch: 101
+Epoch: 101, Loss: 0.4011
+current epoch: 102
+Epoch: 102, Loss: 0.4028
+current epoch: 103
+Epoch: 103, Loss: 0.4066
+current epoch: 104
+Epoch: 104, Loss: 0.4022
+current epoch: 105
+Epoch: 105, Loss: 0.3710
+current epoch: 106
+Epoch: 106, Loss: 0.3580
+current epoch: 107
+Epoch: 107, Loss: 0.3630
+current epoch: 108
+Epoch: 108, Loss: 0.3736
+current epoch: 109
+Epoch: 109, Loss: 0.3678
+current epoch: 110
+Epoch: 110, Loss: 0.3616
+current epoch: 111
+Epoch: 111, Loss: 0.4343
+current epoch: 112
+Epoch: 112, Loss: 0.3424
+current epoch: 113
+Epoch: 113, Loss: 0.3819
+current epoch: 114
+Epoch: 114, Loss: 0.3488
+current epoch: 115
+Epoch: 115, Loss: 0.3636
+current epoch: 116
+Epoch: 116, Loss: 0.3370
+current epoch: 117
+Epoch: 117, Loss: 0.3349
+current epoch: 118
+Epoch: 118, Loss: 0.3417
+current epoch: 119
+Epoch: 119, Loss: 0.3535
+current epoch: 120
+Epoch: 120, Loss: 0.3513
+current epoch: 121
+Epoch: 121, Loss: 0.3764
+current epoch: 122
+Epoch: 122, Loss: 0.3473
+current epoch: 123
+Epoch: 123, Loss: 0.3273
+current epoch: 124
+Epoch: 124, Loss: 0.3269
+current epoch: 125
+Epoch: 125, Loss: 0.3213
+current epoch: 126
+Epoch: 126, Loss: 0.3688
+current epoch: 127
+Epoch: 127, Loss: 0.3350
+current epoch: 128
+Epoch: 128, Loss: 0.3381
+current epoch: 129
+Epoch: 129, Loss: 0.3282
+current epoch: 130
+Epoch: 130, Loss: 0.3337
+current epoch: 131
+Epoch: 131, Loss: 0.3301
+current epoch: 132
+Epoch: 132, Loss: 0.3240
+current epoch: 133
+Epoch: 133, Loss: 0.4808
+current epoch: 134
+Epoch: 134, Loss: 0.3252
+current epoch: 135
+Epoch: 135, Loss: 0.3286
+current epoch: 136
+Epoch: 136, Loss: 0.3588
+current epoch: 137
+Epoch: 137, Loss: 0.3200
+current epoch: 138
+Epoch: 138, Loss: 0.3115
+current epoch: 139
+Epoch: 139, Loss: 0.3151
+current epoch: 140
+Epoch: 140, Loss: 0.3136
+current epoch: 141
+Epoch: 141, Loss: 0.3339
+current epoch: 142
+Epoch: 142, Loss: 0.3043
+current epoch: 143
+Epoch: 143, Loss: 0.2911
+current epoch: 144
+Epoch: 144, Loss: 0.3004
+current epoch: 145
+Epoch: 145, Loss: 0.3045
+current epoch: 146
+Epoch: 146, Loss: 0.3065
+current epoch: 147
+Epoch: 147, Loss: 0.2992
+current epoch: 148
+Epoch: 148, Loss: 0.2962
+current epoch: 149
+Epoch: 149, Loss: 0.2961
+current epoch: 150
+Epoch: 150, Loss: 0.2945
+current epoch: 151
+Epoch: 151, Loss: 0.2985
+current epoch: 152
+Epoch: 152, Loss: 0.2866
+current epoch: 153
+Epoch: 153, Loss: 0.2958
+current epoch: 154
+Epoch: 154, Loss: 0.3614
+current epoch: 155
+Epoch: 155, Loss: 0.2935
+current epoch: 156
+Epoch: 156, Loss: 0.2760
+current epoch: 157
+Epoch: 157, Loss: 0.2857
+current epoch: 158
+Epoch: 158, Loss: 0.2975
+current epoch: 159
+Epoch: 159, Loss: 0.2923
+current epoch: 160
+Epoch: 160, Loss: 0.2888
+current epoch: 161
+Epoch: 161, Loss: 0.2810
+current epoch: 162
+Epoch: 162, Loss: 0.2965
+current epoch: 163
+Epoch: 163, Loss: 0.2777
+current epoch: 164
+Epoch: 164, Loss: 0.2833
+current epoch: 165
+Epoch: 165, Loss: 0.2693
+current epoch: 166
+Epoch: 166, Loss: 0.2674
+current epoch: 167
+Epoch: 167, Loss: 0.2849
+current epoch: 168
+Epoch: 168, Loss: 0.2765
+current epoch: 169
+Epoch: 169, Loss: 0.2783
+current epoch: 170
+Epoch: 170, Loss: 0.2673
+current epoch: 171
+Epoch: 171, Loss: 0.2715
+current epoch: 172
+Epoch: 172, Loss: 0.2825
+current epoch: 173
+Epoch: 173, Loss: 0.2670
+current epoch: 174
+Epoch: 174, Loss: 0.2490
+current epoch: 175
+Epoch: 175, Loss: 0.2610
+current epoch: 176
+Epoch: 176, Loss: 0.2662
+current epoch: 177
+Epoch: 177, Loss: 0.2521
+current epoch: 178
+Epoch: 178, Loss: 0.2600
+current epoch: 179
+Epoch: 179, Loss: 0.2486
+current epoch: 180
+Epoch: 180, Loss: 0.2587
+current epoch: 181
+Epoch: 181, Loss: 0.2484
+current epoch: 182
+Epoch: 182, Loss: 0.2433
+current epoch: 183
+Epoch: 183, Loss: 0.2443
+current epoch: 184
+Epoch: 184, Loss: 0.2655
+current epoch: 185
+Epoch: 185, Loss: 0.2496
+current epoch: 186
+Epoch: 186, Loss: 0.2651
+current epoch: 187
+Epoch: 187, Loss: 0.2498
+current epoch: 188
+Epoch: 188, Loss: 0.2473
+current epoch: 189
+Epoch: 189, Loss: 0.2561
+current epoch: 190
+Epoch: 190, Loss: 0.2503
+current epoch: 191
+Epoch: 191, Loss: 0.2546
+current epoch: 192
+Epoch: 192, Loss: 0.2569
+current epoch: 193
+Epoch: 193, Loss: 0.2369
+current epoch: 194
+Epoch: 194, Loss: 0.2335
+current epoch: 195
+Epoch: 195, Loss: 0.2531
+current epoch: 196
+Epoch: 196, Loss: 0.2523
+current epoch: 197
+Epoch: 197, Loss: 0.2416
+current epoch: 198
+Epoch: 198, Loss: 0.2389
+current epoch: 199
+Epoch: 199, Loss: 0.2400
+training finished
+Test Data: 
+ Accuracy: 87.330%, Avg loss: 0.387075 
+
+----------------- working on VGG3 Dropout & BN ---------------------
+current epoch: 0
+Epoch: 0, Loss: 3.0765
+current epoch: 1
+Epoch: 1, Loss: 16.3707
+current epoch: 2
+Epoch: 2, Loss: 18.7511
+current epoch: 3
+Epoch: 3, Loss: 16.3678
+current epoch: 4
+Epoch: 4, Loss: 15.8397
+current epoch: 5
+Epoch: 5, Loss: 14.5775
+current epoch: 6
+Epoch: 6, Loss: 12.6071
+current epoch: 7
+Epoch: 7, Loss: 15.1990
+current epoch: 8
+Epoch: 8, Loss: 18.7018
+current epoch: 9
+Epoch: 9, Loss: 11.7823
+current epoch: 10
+Epoch: 10, Loss: 10.3315
+current epoch: 11
+Epoch: 11, Loss: 10.8519
+current epoch: 12
+Epoch: 12, Loss: 9.0296
+current epoch: 13
+Epoch: 13, Loss: 6.0436
+current epoch: 14
+Epoch: 14, Loss: 6.3039
+current epoch: 15
+Epoch: 15, Loss: 5.3767
+current epoch: 16
+Epoch: 16, Loss: 8.0572
+current epoch: 17
+Epoch: 17, Loss: 7.0226
+current epoch: 18
+Epoch: 18, Loss: 7.2210
+current epoch: 19
+Epoch: 19, Loss: 5.9000
+current epoch: 20
+Epoch: 20, Loss: 7.0933
+current epoch: 21
+Epoch: 21, Loss: 7.3229
+current epoch: 22
+Epoch: 22, Loss: 10.4643
+current epoch: 23
+Epoch: 23, Loss: 6.0677
+current epoch: 24
+Epoch: 24, Loss: 4.8397
+current epoch: 25
+Epoch: 25, Loss: 7.0789
+current epoch: 26
+Epoch: 26, Loss: 6.8590
+current epoch: 27
+Epoch: 27, Loss: 6.3570
+current epoch: 28
+Epoch: 28, Loss: 6.8815
+current epoch: 29
+Epoch: 29, Loss: 4.5274
+current epoch: 30
+Epoch: 30, Loss: 7.7985
+current epoch: 31
+Epoch: 31, Loss: 4.3727
+current epoch: 32
+Epoch: 32, Loss: 5.1021
+current epoch: 33
+Epoch: 33, Loss: 5.5941
+current epoch: 34
+Epoch: 34, Loss: 5.9221
+current epoch: 35
+Epoch: 35, Loss: 4.0215
+current epoch: 36
+Epoch: 36, Loss: 6.4658
+current epoch: 37
+Epoch: 37, Loss: 4.7310
+current epoch: 38
+Epoch: 38, Loss: 2.8153
+current epoch: 39
+Epoch: 39, Loss: 4.5286
+current epoch: 40
+Epoch: 40, Loss: 5.3499
+current epoch: 41
+Epoch: 41, Loss: 4.6781
+current epoch: 42
+Epoch: 42, Loss: 3.9754
+current epoch: 43
+Epoch: 43, Loss: 5.1000
+current epoch: 44
+Epoch: 44, Loss: 3.5129
+current epoch: 45
+Epoch: 45, Loss: 3.8868
+current epoch: 46
+Epoch: 46, Loss: 4.7536
+current epoch: 47
+Epoch: 47, Loss: 3.6056
+current epoch: 48
+Epoch: 48, Loss: 3.0559
+current epoch: 49
+Epoch: 49, Loss: 4.5408
+current epoch: 50
+Epoch: 50, Loss: 2.7268
+current epoch: 51
+Epoch: 51, Loss: 1.2235
+current epoch: 52
+Epoch: 52, Loss: 1.2874
+current epoch: 53
+Epoch: 53, Loss: 1.2175
+current epoch: 54
+Epoch: 54, Loss: 1.1554
+current epoch: 55
+Epoch: 55, Loss: 1.2973
+current epoch: 56
+Epoch: 56, Loss: 1.3873
+current epoch: 57
+Epoch: 57, Loss: 1.3197
+current epoch: 58
+Epoch: 58, Loss: 1.2142
+current epoch: 59
+Epoch: 59, Loss: 1.1393
+current epoch: 60
+Epoch: 60, Loss: 1.5022
+current epoch: 61
+Epoch: 61, Loss: 1.4451
+current epoch: 62
+Epoch: 62, Loss: 1.3842
+current epoch: 63
+Epoch: 63, Loss: 1.8726
+current epoch: 64
+Epoch: 64, Loss: 1.3441
+current epoch: 65
+Epoch: 65, Loss: 1.3597
+current epoch: 66
+Epoch: 66, Loss: 1.1833
+current epoch: 67
+Epoch: 67, Loss: 1.2068
+current epoch: 68
+Epoch: 68, Loss: 1.3171
+current epoch: 69
+Epoch: 69, Loss: 1.1714
+current epoch: 70
+Epoch: 70, Loss: 1.9204
+current epoch: 71
+Epoch: 71, Loss: 1.1283
+current epoch: 72
+Epoch: 72, Loss: 0.9820
+current epoch: 73
+Epoch: 73, Loss: 1.3548
+current epoch: 74
+Epoch: 74, Loss: 1.2305
+current epoch: 75
+Epoch: 75, Loss: 1.2067
+current epoch: 76
+Epoch: 76, Loss: 1.0317
+current epoch: 77
+Epoch: 77, Loss: 1.2158
+current epoch: 78
+Epoch: 78, Loss: 1.1314
+current epoch: 79
+Epoch: 79, Loss: 1.3315
+current epoch: 80
+Epoch: 80, Loss: 1.2460
+current epoch: 81
+Epoch: 81, Loss: 1.0631
+current epoch: 82
+Epoch: 82, Loss: 1.5426
+current epoch: 83
+Epoch: 83, Loss: 1.3513
+current epoch: 84
+Epoch: 84, Loss: 1.8183
+current epoch: 85
+Epoch: 85, Loss: 1.4480
+current epoch: 86
+Epoch: 86, Loss: 1.3429
+current epoch: 87
+Epoch: 87, Loss: 1.5681
+current epoch: 88
+Epoch: 88, Loss: 1.7830
+current epoch: 89
+Epoch: 89, Loss: 1.5713
+current epoch: 90
+Epoch: 90, Loss: 1.4471
+current epoch: 91
+Epoch: 91, Loss: 1.4511
+current epoch: 92
+Epoch: 92, Loss: 1.8746
+current epoch: 93
+Epoch: 93, Loss: 1.1117
+current epoch: 94
+Epoch: 94, Loss: 1.3145
+current epoch: 95
+Epoch: 95, Loss: 1.0894
+current epoch: 96
+Epoch: 96, Loss: 1.3177
+current epoch: 97
+Epoch: 97, Loss: 1.2173
+current epoch: 98
+Epoch: 98, Loss: 1.0842
+current epoch: 99
+Epoch: 99, Loss: 1.7526
+current epoch: 100
+Epoch: 100, Loss: 1.1468
+current epoch: 101
+Epoch: 101, Loss: 1.2532
+current epoch: 102
+Epoch: 102, Loss: 1.3900
+current epoch: 103
+Epoch: 103, Loss: 1.2348
+current epoch: 104
+Epoch: 104, Loss: 1.1720
+current epoch: 105
+Epoch: 105, Loss: 1.4334
+current epoch: 106
+Epoch: 106, Loss: 1.1779
+current epoch: 107
+Epoch: 107, Loss: 1.1999
+current epoch: 108
+Epoch: 108, Loss: 1.3070
+current epoch: 109
+Epoch: 109, Loss: 1.4070
+current epoch: 110
+Epoch: 110, Loss: 1.2021
+current epoch: 111
+Epoch: 111, Loss: 0.9852
+current epoch: 112
+Epoch: 112, Loss: 0.9979
+current epoch: 113
+Epoch: 113, Loss: 1.3668
+current epoch: 114
+Epoch: 114, Loss: 1.3955
+current epoch: 115
+Epoch: 115, Loss: 1.3065
+current epoch: 116
+Epoch: 116, Loss: 1.6778
+current epoch: 117
+Epoch: 117, Loss: 1.5315
+current epoch: 118
+Epoch: 118, Loss: 1.8589
+current epoch: 119
+Epoch: 119, Loss: 1.3432
+current epoch: 120
+Epoch: 120, Loss: 1.0234
+current epoch: 121
+Epoch: 121, Loss: 0.9806
+current epoch: 122
+Epoch: 122, Loss: 1.3897
+current epoch: 123
+Epoch: 123, Loss: 1.2753
+current epoch: 124
+Epoch: 124, Loss: 1.7330
+current epoch: 125
+Epoch: 125, Loss: 1.2101
+current epoch: 126
+Epoch: 126, Loss: 1.3596
+current epoch: 127
+Epoch: 127, Loss: 1.1318
+current epoch: 128
+Epoch: 128, Loss: 1.2404
+current epoch: 129
+Epoch: 129, Loss: 1.3009
+current epoch: 130
+Epoch: 130, Loss: 1.1932
+current epoch: 131
+Epoch: 131, Loss: 1.2105
+current epoch: 132
+Epoch: 132, Loss: 1.5704
+current epoch: 133
+Epoch: 133, Loss: 1.4744
+current epoch: 134
+Epoch: 134, Loss: 1.1678
+current epoch: 135
+Epoch: 135, Loss: 1.5157
+current epoch: 136
+Epoch: 136, Loss: 1.1033
+current epoch: 137
+Epoch: 137, Loss: 1.4477
+current epoch: 138
+Epoch: 138, Loss: 1.5005
+current epoch: 139
+Epoch: 139, Loss: 1.7533
+current epoch: 140
+Epoch: 140, Loss: 1.5026
+current epoch: 141
+Epoch: 141, Loss: 0.8834
+current epoch: 142
+Epoch: 142, Loss: 1.7774
+current epoch: 143
+Epoch: 143, Loss: 1.5304
+current epoch: 144
+Epoch: 144, Loss: 1.9326
+current epoch: 145
+Epoch: 145, Loss: 1.1568
+current epoch: 146
+Epoch: 146, Loss: 1.4116
+current epoch: 147
+Epoch: 147, Loss: 1.3361
+current epoch: 148
+Epoch: 148, Loss: 1.3341
+current epoch: 149
+Epoch: 149, Loss: 1.8197
+current epoch: 150
+Epoch: 150, Loss: 1.0852
+current epoch: 151
+Epoch: 151, Loss: 1.4946
+current epoch: 152
+Epoch: 152, Loss: 1.1375
+current epoch: 153
+Epoch: 153, Loss: 1.4759
+current epoch: 154
+Epoch: 154, Loss: 0.9963
+current epoch: 155
+Epoch: 155, Loss: 1.3424
+current epoch: 156
+Epoch: 156, Loss: 1.7190
+current epoch: 157
+Epoch: 157, Loss: 1.1386
+current epoch: 158
+Epoch: 158, Loss: 1.0683
+current epoch: 159
+Epoch: 159, Loss: 1.5549
+current epoch: 160
+Epoch: 160, Loss: 1.1634
+current epoch: 161
+Epoch: 161, Loss: 1.2735
+current epoch: 162
+Epoch: 162, Loss: 1.0067
+current epoch: 163
+Epoch: 163, Loss: 1.2834
+current epoch: 164
+Epoch: 164, Loss: 0.9673
+current epoch: 165
+Epoch: 165, Loss: 1.6228
+current epoch: 166
+Epoch: 166, Loss: 1.6099
+current epoch: 167
+Epoch: 167, Loss: 1.2752
+current epoch: 168
+Epoch: 168, Loss: 1.2169
+current epoch: 169
+Epoch: 169, Loss: 1.0137
+current epoch: 170
+Epoch: 170, Loss: 1.0612
+current epoch: 171
+Epoch: 171, Loss: 1.1359
+current epoch: 172
+Epoch: 172, Loss: 1.1507
+current epoch: 173
+Epoch: 173, Loss: 1.6034
+current epoch: 174
+Epoch: 174, Loss: 1.3136
+current epoch: 175
+Epoch: 175, Loss: 1.0259
+current epoch: 176
+Epoch: 176, Loss: 1.6522
+current epoch: 177
+Epoch: 177, Loss: 1.2488
+current epoch: 178
+Epoch: 178, Loss: 1.4859
+current epoch: 179
+Epoch: 179, Loss: 1.3443
+current epoch: 180
+Epoch: 180, Loss: 1.2784
+current epoch: 181
+Epoch: 181, Loss: 0.8468
+current epoch: 182
+Epoch: 182, Loss: 1.4931
+current epoch: 183
+Epoch: 183, Loss: 0.8125
+current epoch: 184
+Epoch: 184, Loss: 0.9091
+current epoch: 185
+Epoch: 185, Loss: 1.0191
+current epoch: 186
+Epoch: 186, Loss: 0.9598
+current epoch: 187
+Epoch: 187, Loss: 1.8114
+current epoch: 188
+Epoch: 188, Loss: 0.8952
+current epoch: 189
+Epoch: 189, Loss: 1.2451
+current epoch: 190
+Epoch: 190, Loss: 1.0227
+current epoch: 191
+Epoch: 191, Loss: 1.1820
+current epoch: 192
+Epoch: 192, Loss: 1.0251
+current epoch: 193
+Epoch: 193, Loss: 1.0620
+current epoch: 194
+Epoch: 194, Loss: 1.6294
+current epoch: 195
+Epoch: 195, Loss: 1.1286
+current epoch: 196
+Epoch: 196, Loss: 0.9104
+current epoch: 197
+Epoch: 197, Loss: 1.1490
+current epoch: 198
+Epoch: 198, Loss: 1.1186
+current epoch: 199
+Epoch: 199, Loss: 1.0484
+training finished
+Test Data: 
+ Accuracy: 81.850%, Avg loss: 1.101560 
+

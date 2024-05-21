@@ -1,3 +1,7 @@
 root
 __pycache__
+.idea
 .DS_Store
+venv
+.idea
+requirementsOLD.txt

@@ -1,14 +1,11 @@
 from VGG1 import VGG1
 from VGG2 import VGG2
-from VGG3 import VGG3
-from VGG3_dropout_BN import VGG3_dropout_BN
 from VGG3_dropout import VGG3
 import torch
 from torch import nn
 from torchvision import datasets
 from torchvision.transforms import v2
 from torch.utils.data import DataLoader
-
 import matplotlib.pyplot as plt
 import time
 
@@ -17,67 +14,51 @@ train_model_training_accuracy_ls = []
 validation_model_training_loss_ls = []
 validation_model_training_accuracy_ls = []
 
+
 def plot_training_validation_loss_and_accuracy():
-	epochs = range(1, len(train_model_training_loss_ls) + 1)
+    epochs = range(1, len(train_model_training_loss_ls) + 1)
 
-	plt.figure(figsize=(12, 6))
+    plt.figure(figsize=(12, 6))
 
-	plt.subplot(1, 2, 1)
-	plt.plot(epochs, train_model_training_loss_ls, "c", label="Training Loss")
-	plt.plot(epochs, validation_model_training_loss_ls, "r", label="Validation Loss")
-	plt.title("Training and Validation Loss")
-	plt.xlabel("Epochs")
-	plt.ylabel("Loss")
-	plt.legend()
+    plt.subplot(1, 2, 1)
+    plt.plot(epochs, train_model_training_loss_ls, "c", label="Training Loss")
+    plt.plot(epochs, validation_model_training_loss_ls, "r", label="Validation Loss")
+    plt.title("Training and Validation Loss")
+    plt.xlabel("Epochs")
+    plt.ylabel("Loss")
+    plt.legend()
 
-	plt.subplot(1, 2, 2)
-	plt.plot(epochs, train_model_training_accuracy_ls, "c", label="Training Acc.")
-	plt.plot(
-		epochs, validation_model_training_accuracy_ls, "r", label="Validation Acc."
-	)
-	plt.title("Training and Validation Accuracy")
-	plt.xlabel("Epochs")
-	plt.ylabel("Accuracy")
-	plt.legend()
+    plt.subplot(1, 2, 2)
+    plt.plot(epochs, train_model_training_accuracy_ls, "c", label="Training Acc.")
+    plt.plot(
+        epochs, validation_model_training_accuracy_ls, "r", label="Validation Acc."
+    )
+    plt.title("Training and Validation Accuracy")
+    plt.xlabel("Epochs")
+    plt.ylabel("Accuracy")
+    plt.legend()
 
+    plt.show()
 
-	#plt.show()
-	fname = f"figs/{time.strftime('%Y%m%d-%H%M%S')}"
-	plt.savefig(fname)
-	plt.close()
 
 # load train and test dataset
 def load_dataset():
 
-	# defining the transfmorations that will be done on the image
-	transforms = v2.Compose([
-		# convert the input from PIL image to Image which is analogy to a torch tensor
-		v2.ToImage(),
-		# performs random horizontal fliping where the default probability for flip is 0.5
-		v2.RandomHorizontalFlip(),
-		# here we are applying the height and width shift, we use the affine function where we can apply multiple
-		# transformations at once, one which you have to apply is degrees which is to rotation the image by in our case
-		# we don't want any transformations
-		v2.RandomAffine(degrees = 0, translate= (0.1, 0.1)),
-		# changes the type of tensor to float32 and performs scaling so the value will be between [0,1] this happens
-		# because the target type is float32
-		v2.ToDtype(torch.float32, scale=True)])
+    # load dataset
+    training_data = datasets.CIFAR10(
+        "root",
+        train=True,
+        download=True,
+        transform=v2.Compose([v2.ToImage(), v2.ToDtype(torch.float32, scale=True)]),
+    )
+    test_data = datasets.CIFAR10(
+        "root",
+        train=False,
+        download=True,
+        transform=v2.Compose([v2.ToImage(), v2.ToDtype(torch.float32, scale=True)]),
+    )
 
-	# load dataset
-	training_data = datasets.CIFAR10(
-		"root",
-		train=True,
-		download=True,
-		transform=transforms,
-	)
-	test_data = datasets.CIFAR10(
-		"root",
-		train=False,
-		download=True,
-		transform=transforms,
-	)
-
-	return training_data, test_data
+    return training_data, test_data
 
 
 def create_dataloaders(batch_size, training_data, test_data):
@@ -92,7 +73,6 @@ def he_initalization(m):
         if isinstance(i, nn.Conv2d) or isinstance(i, nn.Linear):
             nn.init.kaiming_normal_(i.weight, mode="fan_in", nonlinearity="relu")
             nn.init.zeros_(i.bias)
-
 
 
 def evaluate(model, dataloader, loss_fn):
@@ -126,16 +106,18 @@ def evaluate(model, dataloader, loss_fn):
 def compute_loss_on_whole_dataloader(model, dataloader):
     running_loss = 0.0
 
-	for valX, valy in dataloader:
-		valX, valy = valX.to(device), valy.to(device)
+    for valX, valy in dataloader:
+        valX, valy = valX.to(device), valy.to(device)
 
-		# make predictions
-		validation_pred = model(valX.to(device))
-		# compute loss
-		validation_loss = loss_fn(validation_pred, valy.to(device))
-		# update running loss
-		running_loss += validation_loss.item()
+        # make predictions
+        validation_pred = model(valX.to(device))
+        # compute loss
+        validation_loss = loss_fn(validation_pred, valy.to(device))
+        # update running loss
+        running_loss += validation_loss.item()
 
+    # dividing running loss with number total batches made on the data
+    return running_loss / len(dataloader)
 
 
 def compute_accuracy_on_whole_dataloader(model, dataloader):
@@ -149,25 +131,17 @@ def compute_accuracy_on_whole_dataloader(model, dataloader):
             # making predictions
             pred = model(X)
 
-	num_correct = 0
-	with torch.no_grad():
-		for X, y in dataloader:
-			X, y = X.to(device), y.to(device)
-
-			# making predictions
-			pred = model(X)
-
-			num_correct += (pred.argmax(1) == y).type(torch.float).sum().item()
+            num_correct += (pred.argmax(1) == y).type(torch.float).sum().item()
 
     return num_correct / dataset_size
 
 
 def train(
-	epochs, training_dataloader, validation_dataloader, model, loss_fn, optimizer
+    epochs, training_dataloader, validation_dataloader, model, loss_fn, optimizer
 ):
-	# set the model on training model
-	for current_epoch in range(0, epochs):
-		print(f"current epoch: {current_epoch}")
+    # set the model on training model
+    for current_epoch in range(0, epochs):
+        print(f"current epoch: {current_epoch}")
 
         for batch_index, (X, y) in enumerate(training_dataloader):
             model.train()
@@ -195,17 +169,8 @@ def train(
         training_loss = compute_loss_on_whole_dataloader(model, training_dataloader)
         validation_loss = compute_loss_on_whole_dataloader(model, validation_dataloader)
 
-		train_model_training_loss_ls.append(training_loss)
-		validation_model_training_loss_ls.append(validation_loss)
-
-		training_acc = compute_accuracy_on_whole_dataloader(model, training_dataloader)
-		validation_acc = compute_accuracy_on_whole_dataloader(
-			model, validation_dataloader
-		)
-
-		train_model_training_accuracy_ls.append(training_acc)
-		validation_model_training_accuracy_ls.append(validation_acc)
-
+        train_model_training_loss_ls.append(training_loss)
+        validation_model_training_loss_ls.append(validation_loss)
 
         training_acc = compute_accuracy_on_whole_dataloader(model, training_dataloader)
         validation_acc = compute_accuracy_on_whole_dataloader(
@@ -231,7 +196,7 @@ if __name__ == "__main__":
 
     batch_size = 64
 
-    trainig_data, test_data = normalize_load_dataset()
+    trainig_data, test_data = load_dataset()
     train_dataloader, test_dataloader = create_dataloaders(
         batch_size, trainig_data, test_data
     )
@@ -247,40 +212,37 @@ if __name__ == "__main__":
     # VGG2 = VGG2().to(device)
     # VGG2.apply(he_initalization)
 
-	# VGG1 = VGG1().to(device)
-	# VGG1.apply(he_initalization)
+    VGG3 = VGG3().to(device)
+    VGG3.apply(he_initalization)
 
-    VGG3_dropout_BN = VGG3_dropout_BN().to(device)
-    VGG3_dropout_BN.apply(he_initalization)
-
-	  VGG3 = VGG3().to(device)
-	  VGG3.apply(he_initalization)
-
+    # for name, param in model.named_parameters():
+    #     if param.requires_grad:
+    #         print(name, param.data)
 
     # defining loss function and optimizer
     loss_fn = nn.CrossEntropyLoss()
-    optimize = torch.optim.SGD(VGG3_dropout_BN.parameters(), lr=0.001, momentum=0.9)
 
+    # Adam
+    optimize = torch.optim.Adam(VGG3.parameters(), lr=0.001)
 
-	# defining loss function and optimizer
-	loss_fn = nn.CrossEntropyLoss()
-	optimize = torch.optim.SGD(VGG3.parameters(), lr=0.001, momentum=0.9)
+    # AdamW
+    # optimize = torch.optim.AdamW(VGG3.parameters(), lr=0.001)
 
-	start_total_time = time.time()
+    start_total_time = time.time()
 
-	train(100, train_dataloader, test_dataloader, VGG3, loss_fn, optimize)  # training
-	train_time = time.time() - start_total_time
-	print(f"Training Time: {train_time}")
+    train(100, train_dataloader, test_dataloader, VGG3, loss_fn, optimize)  # training
+    train_time = time.time() - start_total_time
+    print(f"Training Time: {train_time}")
 
-	start_evaluation_time = time.time()
+    start_evaluation_time = time.time()
 
-	evaluate(VGG3, test_dataloader, loss_fn)  # evaluating
-	evaluate_time = time.time() - start_evaluation_time
-	print(f"Evaluation Time: {evaluate_time}")
+    evaluate(VGG3, test_dataloader, loss_fn)  # evaluating
+    evaluate_time = time.time() - start_evaluation_time
+    print(f"Evaluation Time: {evaluate_time}")
 
-	print(f"Total Time: {time.time() - start_total_time}")
+    print(f"Total Time: {time.time() - start_total_time}")
 
-	# print(f"training lost list: {train_model_training_loss_ls}")
-	# print(f"validation lost list: {validation_model_training_loss_ls}")
+    # print(f"training lost list: {train_model_training_loss_ls}")
+    # print(f"validation lost list: {validation_model_training_loss_ls}")
 
-	plot_training_validation_loss_and_accuracy()
+    plot_training_validation_loss_and_accuracy()

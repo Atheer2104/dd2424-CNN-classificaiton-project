@@ -39,41 +39,26 @@ def plot_training_validation_loss_and_accuracy():
 # load train and test dataset
 def load_dataset():
 
-	# defining the transfmorations that will be done on the image
-	transforms = v2.Compose([
-		# convert the input from PIL image to Image which is analogy to a torch tensor
-		v2.ToImage(),
-		# performs random horizontal fliping where the default probability for flip is 0.5
-		v2.RandomHorizontalFlip(),
-		# here we are applying the height and width shift, we use the affine function where we can apply multiple
-		# transformations at once, one which you have to apply is degrees which is to rotation the image by in our case
-		# we don't want any transformations
-		v2.RandomAffine(degrees = 0, translate= (0.1, 0.1)),
-		# changes the type of tensor to float32 and performs scaling so the value will be between [0,1] this happens
-		# because the target type is float32
-		v2.ToDtype(torch.float32, scale=True)])
-
 	# load dataset
 	training_data = datasets.CIFAR10(
 		"root",
 		train=True,
 		download=True,
-		transform=transforms
+		transform=v2.Compose([v2.ToImage(), v2.ToDtype(torch.float32, scale=True)]),
 	)
-
 	test_data = datasets.CIFAR10(
 		"root",
 		train=False,
 		download=True,
-		transform=transforms,
+		transform=v2.Compose([v2.ToImage(), v2.ToDtype(torch.float32, scale=True)]),
 	)
 
 	return training_data, test_data
 
 
 def create_dataloaders(batch_size, training_data, test_data):
-	train_dataloader = DataLoader(training_data, batch_size=batch_size, shuffle=True, num_workers=4)
-	test_dataloader = DataLoader(test_data, batch_size=batch_size, shuffle=True, num_workers=4)
+	train_dataloader = DataLoader(training_data, batch_size=batch_size, shuffle=True)
+	test_dataloader = DataLoader(test_data, batch_size=batch_size, shuffle=True)
 
 	return train_dataloader, test_dataloader
 
@@ -211,8 +196,8 @@ if __name__ == "__main__":
 	# 	print(f"Shape of y: {y.shape} {y.dtype}")
 	# 	break
 
-	#VGG1 = VGG1().to(device)
-	#VGG1.apply(he_initalization)
+	# VGG1 = VGG1().to(device)
+	# VGG1.apply(he_initalization)
 
 	# VGG2 = VGG2().to(device)
 	# VGG2.apply(he_initalization)
@@ -226,12 +211,12 @@ if __name__ == "__main__":
 
 	# defining loss function and optimizer
 	loss_fn = nn.CrossEntropyLoss()
-	optimize = torch.optim.SGD(VGG3.parameters(), lr=0.001, momentum=0.9)
+	optimize = torch.optim.SGD(VGG3.parameters(), lr=0.001, momentum=0.9, weight_decay=0.001)
 
 	train(100, train_dataloader, test_dataloader, VGG3, loss_fn, optimize)
 	evaluate(VGG3, test_dataloader, loss_fn)
 
 	# print(f"training lost list: {train_model_training_loss_ls}")
 	# print(f"validation lost list: {validation_model_training_loss_ls}")
-
+	
 	plot_training_validation_loss_and_accuracy()

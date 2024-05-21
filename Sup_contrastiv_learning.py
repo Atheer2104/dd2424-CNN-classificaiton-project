@@ -1,40 +1,50 @@
 from VGG1 import VGG1
 from VGG2 import VGG2
-from VGG3 import VGG3
+from VGG3_dropout import VGG3
 import torch
 from torch import nn
 from torchvision import datasets
 from torchvision.transforms import v2
 from torch.utils.data import DataLoader
+from SupConLoss import SupConLoss 
 import matplotlib.pyplot as plt
+import time
 
 train_model_training_loss_ls = []
 train_model_training_accuracy_ls = []
 validation_model_training_loss_ls = []
 validation_model_training_accuracy_ls = []
 
+
 def plot_training_validation_loss_and_accuracy():
-	epochs = range(1,len(train_model_training_loss_ls)+1)
+	epochs = range(1, len(train_model_training_loss_ls) + 1)
 
-	plt.figure(figsize=(12,6))
+	plt.figure(figsize=(12, 6))
 
-	plt.subplot(1,2,1)
-	plt.plot(epochs, train_model_training_loss_ls, 'c', label="Training Loss")
-	plt.plot(epochs, validation_model_training_loss_ls, 'r', label="Validation Loss")
+	plt.subplot(1, 2, 1)
+	plt.plot(epochs, train_model_training_loss_ls, "c", label="Training Loss")
+	plt.plot(epochs, validation_model_training_loss_ls, "r", label="Validation Loss")
 	plt.title("Training and Validation Loss")
 	plt.xlabel("Epochs")
 	plt.ylabel("Loss")
 	plt.legend()
 
 	plt.subplot(1, 2, 2)
-	plt.plot(epochs, train_model_training_accuracy_ls, 'c', label="Training Acc.")
-	plt.plot(epochs, validation_model_training_accuracy_ls, 'r', label="Validation Acc.")
+	plt.plot(epochs, train_model_training_accuracy_ls, "c", label="Training Acc.")
+	plt.plot(
+		epochs, validation_model_training_accuracy_ls, "r", label="Validation Acc."
+	)
 	plt.title("Training and Validation Accuracy")
 	plt.xlabel("Epochs")
 	plt.ylabel("Accuracy")
 	plt.legend()
 
 	plt.show()
+
+	#plt.show()
+	fname = f"figs/{time.strftime('%Y%m%d-%H%M%S')}"
+	plt.savefig(fname)
+	plt.close()
 
 # load train and test dataset
 def load_dataset():
@@ -58,9 +68,8 @@ def load_dataset():
 		"root",
 		train=True,
 		download=True,
-		transform=transforms
+		transform=transforms,
 	)
-
 	test_data = datasets.CIFAR10(
 		"root",
 		train=False,
@@ -72,8 +81,8 @@ def load_dataset():
 
 
 def create_dataloaders(batch_size, training_data, test_data):
-	train_dataloader = DataLoader(training_data, batch_size=batch_size, shuffle=True, num_workers=4)
-	test_dataloader = DataLoader(test_data, batch_size=batch_size, shuffle=True, num_workers=4)
+	train_dataloader = DataLoader(training_data, batch_size=batch_size, shuffle=True)
+	test_dataloader = DataLoader(test_data, batch_size=batch_size, shuffle=True)
 
 	return train_dataloader, test_dataloader
 
@@ -83,6 +92,7 @@ def he_initalization(m):
 		if isinstance(i, nn.Conv2d) or isinstance(i, nn.Linear):
 			nn.init.kaiming_normal_(i.weight, mode="fan_in", nonlinearity="relu")
 			nn.init.zeros_(i.bias)
+
 
 def evaluate(model, dataloader, loss_fn):
 	model.eval()
@@ -117,7 +127,7 @@ def compute_loss_on_whole_dataloader(model, dataloader):
 
 	for valX, valy in dataloader:
 		valX, valy = valX.to(device), valy.to(device)
-		
+
 		# make predictions
 		validation_pred = model(valX.to(device))
 		# compute loss
@@ -128,6 +138,7 @@ def compute_loss_on_whole_dataloader(model, dataloader):
 	# dividing running loss with number total batches made on the data
 	return running_loss / len(dataloader)
 
+
 def compute_accuracy_on_whole_dataloader(model, dataloader):
 	dataset_size = len(dataloader.dataset)
 
@@ -135,16 +146,18 @@ def compute_accuracy_on_whole_dataloader(model, dataloader):
 	with torch.no_grad():
 		for X, y in dataloader:
 			X, y = X.to(device), y.to(device)
-			
-   			# making predictions
+
+			# making predictions
 			pred = model(X)
-			
+
 			num_correct += (pred.argmax(1) == y).type(torch.float).sum().item()
 
 	return num_correct / dataset_size
 
 
-def train(epochs, training_dataloader, validation_dataloader, model, loss_fn, optimizer):
+def train(
+	epochs, training_dataloader, validation_dataloader, model, loss_fn, optimizer
+):
 	# set the model on training model
 	for current_epoch in range(0, epochs):
 		print(f"current epoch: {current_epoch}")
@@ -159,7 +172,7 @@ def train(epochs, training_dataloader, validation_dataloader, model, loss_fn, op
 			trainig_pred = model(X)
 			# computing the loss from our prediction and true val
 			training_loss = loss_fn(trainig_pred, y)
-
+			print(training_loss)
 			# have to zero out the gradients, for each batch since they can be accumulated
 			optimizer.zero_grad()
 
@@ -177,13 +190,14 @@ def train(epochs, training_dataloader, validation_dataloader, model, loss_fn, op
 
 		train_model_training_loss_ls.append(training_loss)
 		validation_model_training_loss_ls.append(validation_loss)
-		
+
 		training_acc = compute_accuracy_on_whole_dataloader(model, training_dataloader)
-		validation_acc = compute_accuracy_on_whole_dataloader(model, validation_dataloader)
-  
+		validation_acc = compute_accuracy_on_whole_dataloader(
+			model, validation_dataloader
+		)
+
 		train_model_training_accuracy_ls.append(training_acc)
 		validation_model_training_accuracy_ls.append(validation_acc)
-		
 
 		# Print information out
 		print(f"Epoch: {current_epoch}, Loss: {training_loss:.4f}")
@@ -211,8 +225,8 @@ if __name__ == "__main__":
 	# 	print(f"Shape of y: {y.shape} {y.dtype}")
 	# 	break
 
-	#VGG1 = VGG1().to(device)
-	#VGG1.apply(he_initalization)
+	# VGG1 = VGG1().to(device)
+	# VGG1.apply(he_initalization)
 
 	# VGG2 = VGG2().to(device)
 	# VGG2.apply(he_initalization)
@@ -225,11 +239,23 @@ if __name__ == "__main__":
 	#         print(name, param.data)
 
 	# defining loss function and optimizer
-	loss_fn = nn.CrossEntropyLoss()
+	#loss_fn = nn.CrossEntropyLoss()
+	loss_fn = SupConLoss()
 	optimize = torch.optim.SGD(VGG3.parameters(), lr=0.001, momentum=0.9)
 
-	train(100, train_dataloader, test_dataloader, VGG3, loss_fn, optimize)
-	evaluate(VGG3, test_dataloader, loss_fn)
+	start_total_time = time.time()
+
+	train(100, train_dataloader, test_dataloader, VGG3, loss_fn, optimize)  # training
+	train_time = time.time() - start_total_time
+	print(f"Training Time: {train_time}")
+
+	start_evaluation_time = time.time()
+
+	evaluate(VGG3, test_dataloader, loss_fn)  # evaluating
+	evaluate_time = time.time() - start_evaluation_time
+	print(f"Evaluation Time: {evaluate_time}")
+
+	print(f"Total Time: {time.time() - start_total_time}")
 
 	# print(f"training lost list: {train_model_training_loss_ls}")
 	# print(f"validation lost list: {validation_model_training_loss_ls}")
