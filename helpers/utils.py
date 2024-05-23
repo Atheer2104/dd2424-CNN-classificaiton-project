@@ -19,25 +19,25 @@ def clear_histogram():
 	validation_model_training_accuracy_ls = []
 
 
-def plot_training_validation_loss_and_accuracy():
+def plot_training_validation_loss_and_accuracy(name=""):
 	epochs = range(1, len(train_model_training_loss_ls) + 1)
 
 	plt.figure(figsize=(12, 6))
 
 	plt.subplot(1, 2, 1)
-	plt.plot(epochs, train_model_training_loss_ls, "c", label="Training Loss")
-	plt.plot(epochs, validation_model_training_loss_ls, "r", label="Validation Loss")
-	plt.title("Training and Validation Loss")
+	plt.plot(epochs, train_model_training_loss_ls, "c", label=f"{name} Training Loss")
+	plt.plot(epochs, validation_model_training_loss_ls, "r", label=f"{name} Validation Loss")
+	plt.title(f"{name} Training and Validation Loss")
 	plt.xlabel("Epochs")
 	plt.ylabel("Loss")
 	plt.legend()
 
 	plt.subplot(1, 2, 2)
-	plt.plot(epochs, train_model_training_accuracy_ls, "c", label="Training Acc.")
+	plt.plot(epochs, train_model_training_accuracy_ls, "c", label=f"{name} Training Acc.")
 	plt.plot(
-		epochs, validation_model_training_accuracy_ls, "r", label="Validation Acc."
+		epochs, validation_model_training_accuracy_ls, "r", label=f"{name} Validation Acc."
 	)
-	plt.title("Training and Validation Accuracy")
+	plt.title("{name} Training and Validation Accuracy")
 	plt.xlabel("Epochs")
 	plt.ylabel("Accuracy")
 	plt.legend()
