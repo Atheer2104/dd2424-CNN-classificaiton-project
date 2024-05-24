@@ -117,7 +117,7 @@ def evaluate(model, dataloader, loss_fn):
 			pred = model(X)
 
 			# getting total loss
-			total_loss += loss_fn(pred, y).item()
+			total_loss += loss_fn(pred, y.long()).item()
 
 			num_correct += (pred.argmax(1) == y).type(torch.float).sum().item()
 
@@ -183,7 +183,7 @@ def train(
 			# here we are making the prediction
 			trainig_pred = model(X)
 			# computing the loss from our prediction and true val
-			training_loss = loss_fn(trainig_pred, y)
+			training_loss = loss_fn(trainig_pred, y.long())
 
 			# have to zero out the gradients, for each batch since they can be accumulated
 			optimizer.zero_grad()
@@ -237,7 +237,7 @@ if __name__ == "__main__":
 	training_data_copy = copy.deepcopy(training_data)
 
 	# Contaminate training data labels
-	noise = 0.6
+	noise = 0.8
 	contaminate_labels(training_data_copy.dataset, noise)
 
 	training_dataloader, validation_loader, test_dataloader = create_dataloaders(batch_size, training_data_copy, validation_data, test_data)
