@@ -6,7 +6,7 @@ from torch.nn.modules.dropout import Dropout
 momentum_BN = 0.99
 
 # this is the implementation of a single VGG block with dropout and BN
-class _VGG_Block_dropout_BN(nn.Module):
+class _VGG_Block_BN_Dropout(nn.Module):
     def __init__(self, in_channels, out_channels, dropout_rate):
         super().__init__()
         self.block = nn.Sequential(
@@ -24,12 +24,12 @@ class _VGG_Block_dropout_BN(nn.Module):
         return self.block(x)
 
 
-class VGG3_dropout_BN(nn.Module):
+class VGG3_BN_Dropput(nn.Module):
     def __init__(self):
         super().__init__()
-        self.vgg_block_1 = _VGG_Block_dropout_BN(3, 32, 0.2)
-        self.vgg_block_2 = _VGG_Block_dropout_BN(32, 64, 0.3)
-        self.vgg_block_3 = _VGG_Block_dropout_BN(64, 128, 0.4)
+        self.vgg_block_1 = _VGG_Block_BN_Dropout(3, 32, 0.2)
+        self.vgg_block_2 = _VGG_Block_BN_Dropout(32, 64, 0.3)
+        self.vgg_block_3 = _VGG_Block_BN_Dropout(64, 128, 0.4)
         self.classifier = nn.Sequential(
             nn.Linear(128 * 4 * 4, 128),
             nn.ReLU(inplace=True),
