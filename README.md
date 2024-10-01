@@ -39,7 +39,7 @@ This folder contains 4 subfolders where each folder is a single experiment which
 - **Architectural upgrades (A-Level grade)**
 This folder contains the architectural upgrades which were implemented in ResNet with various depths namely ResNet20, ResNet56, and ResNet110. Furthermore experimented on top of ResNet
 by adding Squeeze and Excitation ResNet blocks, adding Patchify and Embed (the first operation in Visual Transformer) to the original ResNet architecture and finally experimenting with
-more sophisticated data augmentations such as random erasing, MixCut and MixUp
+more sophisticated data augmentations such as random erasing, CutMix and MixUp
 
 - **noisy labels (A-level grade)** 
 This folder contains the experiments on noisy labels using the Symmetric Cross Entropy Loss on the VGG network
